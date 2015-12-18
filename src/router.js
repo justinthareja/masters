@@ -24,7 +24,8 @@ export default Router.extend({
     '': 'home',
     'repos': 'repos',
     'login': 'login',
-    'auth/callback?:query': 'authCallback'
+    'logout': 'logout',
+    'auth/callback?:query': 'authCallback',
   },
 
   home () {
@@ -40,7 +41,7 @@ export default Router.extend({
       client_id: 'c61fcc6371ce27db6e6a',
       redirect_uri: window.location.origin + '/auth/callback',
       scope: 'user, repo'
-    });
+    })
   },
 
   authCallback (query) {
@@ -52,7 +53,13 @@ export default Router.extend({
     }, (err, req, body) => {
       console.log(body)
       app.user.token = body.token
+      this.redirectTo('/repos');
     })
+  },
+
+  logout () {
+    window.localStorage.clear()
+    window.location = '/'
   }
 
 })
