@@ -1,3 +1,4 @@
+import app from 'ampersand-app'
 import Router from 'ampersand-router'
 import React from 'react'
 import qs from 'qs'
@@ -44,12 +45,13 @@ export default Router.extend({
 
   authCallback (query) {
     query = qs.parse(query);
-
+    console.log(query)
     xhr({
       url: 'https://coderamp-auth.herokuapp.com/authenticate/' + query.code,
       json: true
     }, (err, req, body) => {
       console.log(body)
+      app.user.token = body.token
     })
   }
 
