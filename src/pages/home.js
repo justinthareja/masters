@@ -16,7 +16,7 @@ export default React.createClass({
             <span className='mega-octicon octicon-mark-github'></span> Login with GitHub
           </a>
         </div>
-      <NavHelper>
+      </NavHelper>
     )
   }
 });
