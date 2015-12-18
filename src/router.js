@@ -1,9 +1,9 @@
 import Router from 'ampersand-router'
 import React from 'react'
+import qs from 'qs'
 import Layout from './layout'
 import HomePage from './pages/home'
 import ReposPage from './pages/repos'
-import ClickHandler from './components/nav-helper'
 
 export default Router.extend({
   renderPage (page, opts = {layout: true}) {
@@ -20,7 +20,9 @@ export default Router.extend({
 
   routes: {
     '': 'home',
-    'repos': 'repos'
+    'repos': 'repos',
+    'login': 'login',
+    'auth/callback?:query': 'authCallback'
   },
 
   home () {
@@ -29,6 +31,19 @@ export default Router.extend({
 
   repos () {
     this.renderPage(<ReposPage/>)
+  },
+
+  login () {
+    window.location =  'https://github.com/login/oauth/authorize?' + qs.stringify({
+      client_id: 'c61fcc6371ce27db6e6a',
+      redirect_uri: window.location.origin + '/auth/callback',
+      scope: 'user, repo'
+    });
+  },
+
+  authCallback (query) {
+    query = qs.parse(query);
+    console.log(query)
   }
 
 })
