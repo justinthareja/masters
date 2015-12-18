@@ -3,6 +3,7 @@ import React from 'react'
 import Layout from './layout'
 import HomePage from './pages/home'
 import ReposPage from './pages/repos'
+import ClickHandler from './components/nav-helper'
 
 export default Router.extend({
   renderPage (page, opts = {layout: true}) {
